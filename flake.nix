@@ -17,11 +17,17 @@
 		nixosConfigurations.default = nixpkgs.lib.nixosSystem {
 			inherit pkgs system;
 			modules = [
+				{networking.hostName="nix";}
+				{
+					environment.systemPackages = [
+						home-manager.pacakges.${system}.home-manager
+					];
+				}
 				./hosts/default
 				/etc/nixos/hardware-configuration.nix
 			];
 		};
-		homeConfigurations.qow = home-manager.lib.homeManagerConfiguration {
+		homeConfigurations."qow" = home-manager.lib.homeManagerConfiguration {
 			inherit pkgs system;
 			modules = [import ./users/qow];
 		};
