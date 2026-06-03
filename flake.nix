@@ -15,7 +15,7 @@
 			pkgs = nixpkgs;
 			modules = [
 				./hosts/default
-				/etc/nixos/hardware-configurations.nix
+				/etc/nixos/hardware-configuration.nix
 			];
 		};
 		homeConfigurations.qow = home-manager.lib.homeManagerConfiguration {
