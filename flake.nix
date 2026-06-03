@@ -20,7 +20,7 @@
 				{networking.hostName="nix";}
 				{
 					environment.systemPackages = [
-						home-manager.pacakges.${system}.home-manager
+						home-manager.packages.${system}.home-manager
 					];
 				}
 				./hosts/default
