@@ -6,12 +6,15 @@
 	};
 
 	outputs = {self, nixpkgs, home-manager, ...}:
-		let system = "x86_64-linux";
-	in {
+	let
+		system = "x86_64-linux";
+	in
+	{
 		nixosConfigurations.default = nixpkgs.lib.nixosSystem {
 			inherit system;
+			pkgs = nixpkgs;
 			modules = [
-				import ./hosts/default
+				./hosts/default
 				/etc/nixos/hardware-configurations.nix
 			];
 		};
