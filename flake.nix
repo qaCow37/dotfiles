@@ -7,10 +7,8 @@
 
 	outputs = {self, nixpkgs, home-manager, ...}:
 		let system = "x86_64-linux";
-		    pkgs = import nixpkgs {inherit system;};
-		in
-	{
-		nixosConfigurations.default = pkgs.lib.nixosSystem {
+	in {
+		nixosConfigurations.default = nixpkgs.lib.nixosSystem {
 			inherit system;
 			modules = [
 				import ./hosts/default
