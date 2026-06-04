@@ -26,10 +26,11 @@
 				./hosts/default
 				/etc/nixos/hardware-configuration.nix
 			];
+			specialArgs = {};
 		};
-		homeConfigurations."qow" = home-manager.lib.homeManagerConfiguration {
+		homeConfigurations."qow@nix" = home-manager.lib.homeManagerConfiguration {
 			inherit pkgs system;
-			modules = [import ./users/qow];
+			modules = [./users/qow];
 		};
 	};
 }
