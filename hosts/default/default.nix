@@ -3,8 +3,6 @@
 	boot.loader.systemd-boot.enable = true;
 	boot.loader.efi.canTouchEfiVariables = true;
 
-	services.flatpak.enable = true;
-
 	imports = [
 		./users.nix
 	];

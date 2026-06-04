@@ -6,10 +6,18 @@
 			url = "github:nix-community/home-manager";
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
-		nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
+		zen-browser = {
+			url = "github:0xc000022070/zen-browser-flake";
+			inputs.nixpkgs.follows = "nixpkgs";
+			inputs.home-manager.follows = "home-manager";
+		};
+		firefox-addons = {
+			url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
+			inputs.nixpkgs.follows = "nixpkgs";
+		};
 	};
 
-	outputs = {self, nixpkgs, home-manager, nix-flatpak, ...}:
+	outputs = {self, nixpkgs, home-manager, ...}@inputs:
 	let
 		system = "x86_64-linux";
 		pkgs = nixpkgs.legacyPackages.${system};
@@ -18,8 +26,8 @@
 		nixosConfigurations.default = nixpkgs.lib.nixosSystem {
 			inherit pkgs system;
 			modules = [
-				{networking.hostName="nix";}
 				{
+					networking.hostName = "nix";
 					environment.systemPackages = [
 						home-manager.packages.${system}.home-manager
 					];
@@ -32,10 +40,13 @@
 		homeConfigurations.qow = home-manager.lib.homeManagerConfiguration {
 			inherit pkgs;
 			modules = [
-				nix-flatpak.homeManagerModules.nix-flatpak
+				inputs.zen-browser.homeModules.beta
 				./users/qow
 			];
-			extraSpecialArgs.flakeRoot = self;
+			extraSpecialArgs = {
+				flakeRoot = self;
+				system = system;
+			};
 		};
 	};
 }
