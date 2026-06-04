@@ -29,7 +29,7 @@
 			];
 			specialArgs = {};
 		};
-		homeConfigurations."qow@nix" = home-manager.lib.homeManagerConfiguration {
+		homeConfigurations.qow = home-manager.lib.homeManagerConfiguration {
 			inherit pkgs system;
 			modules = [
 				nix-flatpak.homeManagerModules.nix-flatpak
