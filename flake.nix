@@ -30,7 +30,7 @@
 			specialArgs = {};
 		};
 		homeConfigurations.qow = home-manager.lib.homeManagerConfiguration {
-			inherit pkgs system;
+			inherit pkgs;
 			modules = [
 				nix-flatpak.homeManagerModules.nix-flatpak
 				./users/qow
