@@ -11,6 +11,9 @@
 
 			monitors.conf()
 		'';
-		xdg.configFile.hypr.source = "${flakeRoot}/config/hypr"
+	};
+	xdg.configFile.hypr = {
+		source = "${flakeRoot}/config/hypr";
+		recursive = true;
 	};
 }
