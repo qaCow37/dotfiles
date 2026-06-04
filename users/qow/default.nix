@@ -1,6 +1,10 @@
 {config, pkgs, inputs, ...}:
 {
-	home.packages = with pkgs; [flatpak];
+	home = {
+		packages = with pkgs; [flatpak];
+		stateVersion = "26.05";
+		username = "qow";
+	};
 	
 	services.flatpak = {
 		enable = true;
@@ -12,6 +16,4 @@
 		];
 		update.onActivation = true;
 	};
-
-	home.stateVersion = "26.05";
 }
