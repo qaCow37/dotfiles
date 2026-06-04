@@ -35,6 +35,7 @@
 				nix-flatpak.homeManagerModules.nix-flatpak
 				./users/qow
 			];
+			extraSpecialArgs.flakeRoot = self;
 		};
 	};
 }

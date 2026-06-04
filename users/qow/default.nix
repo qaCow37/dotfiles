@@ -4,7 +4,7 @@
 		packages = with pkgs; [flatpak];
 		stateVersion = "26.05";
 		username = "qow";
-		homeDirectory = "/home/qow"
+		homeDirectory = "/home/qow";
 	};
 	
 	services.flatpak = {
@@ -17,4 +17,8 @@
 		];
 		update.onActivation = true;
 	};
+
+	imports = [
+		./hyprland.nix
+	];
 }
