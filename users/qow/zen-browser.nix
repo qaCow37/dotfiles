@@ -30,10 +30,6 @@
 			Value = "about:home";
 			Status = "locked";
 		};
-		"zen.urlbar.replace-newtab" = {
-			Value = false;
-			Status = "locked";
-		};
 	};
 	programs.zen-browser.profiles.default = {
 		search = {
@@ -44,7 +40,7 @@
 					name = "Brave";
 					urls = [
 						{
-							template = "https://search.brave.com/search?q=${searchTerms}";
+							template = "https://search.brave.com/search?q={searchTerms}";
 							params = [
 								{
 									name = "query";
@@ -58,6 +54,8 @@
 		};
 		settings = {
 			"zen.workspaces.continue-where-left-off" = true;
+			"zen.urlbar.replace-newtab" = false;
+			"zen.welcome-screen.seen" = true;
 		};
 		extensions.packages = with inputs.firefox-addons.packages.${system}; [
 			ublock-origin

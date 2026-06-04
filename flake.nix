@@ -15,6 +15,7 @@
 			url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
+		spicetify-nix.url = "github:Gerg-L/spicetify-nix";
 	};
 
 	outputs = {self, nixpkgs, home-manager, ...}@inputs:
@@ -23,7 +24,7 @@
 		pkgs = nixpkgs.legacyPackages.${system};
 	in
 	{
-		nixosConfigurations.default = nixpkgs.lib.nixosSystem {
+		nixosConfigurations.nix = nixpkgs.lib.nixosSystem {
 			inherit pkgs system;
 			modules = [
 				{
@@ -32,20 +33,22 @@
 						home-manager.packages.${system}.home-manager
 					];
 				}
-				./hosts/default
+				./hosts/nix
 				/etc/nixos/hardware-configuration.nix
 			];
-			specialArgs = {};
+			specialArgs = {inputs=inputs;};
 		};
 		homeConfigurations.qow = home-manager.lib.homeManagerConfiguration {
 			inherit pkgs;
 			modules = [
+				inputs.spicetify-nix.homeManagerModules.spicetify
 				inputs.zen-browser.homeModules.beta
 				./users/qow
 			];
 			extraSpecialArgs = {
 				flakeRoot = self;
 				system = system;
+				inputs = inputs;
 			};
 		};
 	};

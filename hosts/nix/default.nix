@@ -10,6 +10,7 @@
 	environment.systemPackages = with pkgs; [
 		kitty
 		git
+		fastfetch
 	];
 	hardware.graphics.enable = true;
 	programs.hyprland.enable = true;
