@@ -1,4 +1,4 @@
-{config, pkgs, inputs, ...}:
+\{config, pkgs, inputs, ...}:
 {
 	home.packages = with pkgs; [flatpak];
 	
@@ -8,6 +8,7 @@
 			"com.spotify.Client"
 			"com.discordapp.Discord"
 			"app.zen_browser.zen"
+			"io.github.shiftey.Desktop"
 		];
 		update.onActivation = true;
 	};
