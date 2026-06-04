@@ -1,7 +1,7 @@
 {...}:{
 	users.users."qow" = {
 		isNormalUser = true;
-		groups = ["wheel"];
+		extraGroups = ["wheel"];
 		createHome = true;
 	};
 }
