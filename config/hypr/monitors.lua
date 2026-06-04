@@ -10,7 +10,7 @@ function mod.conf()
 	hl.monitor({
 		output = "DP-2",
 		mode = "1920x1080@144",
-		position = "480x0",
+		position = "720x0",
 		scale = 1.0,
 	})
 	hl.monitor({
