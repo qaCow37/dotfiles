@@ -13,5 +13,5 @@
 		update.onActivation = true;
 	};
 
-	system.stateVersion = "26.05";
+	home.stateVersion = "26.05";
 }
