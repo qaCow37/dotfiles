@@ -6,6 +6,7 @@
 			url = "github:nix-community/home-manager";
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
+		nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
 	};
 
 	outputs = {self, nixpkgs, home-manager, ...}:
@@ -30,7 +31,10 @@
 		};
 		homeConfigurations."qow@nix" = home-manager.lib.homeManagerConfiguration {
 			inherit pkgs system;
-			modules = [./users/qow];
+			modules = [
+				nix-flatpak.homeManagerModules.nix-flatpak
+				./users/qow
+			];
 		};
 	};
 }
