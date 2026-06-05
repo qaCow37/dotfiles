@@ -7,11 +7,26 @@
 		./users.nix
 	];
 
+	programs.steam.enable = true;
+
+	services.pipewire = {
+ 		enable = true;
+		alsa.enable = true;
+		alsa.support32Bit = true;
+		pulse.enable = true;
+		wireplumber.enable = true;
+	};
+
 	environment.systemPackages = with pkgs; [
 		kitty
 		git
 		fastfetch
+		unzip
+		thcrap-steam-proton-wrapper
 	];
-	hardware.graphics.enable = true;
+	hardware.graphics = {
+		enable = true;
+		enable32Bit = true;
+	};
 	programs.hyprland.enable = true;
 }

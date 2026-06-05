@@ -23,11 +23,16 @@
 			PictureInPicture = false;
 			SearchSuggestEnabled = false;
 			TranslateEnabled = false;
+			SearchEngines = {
+				HideDefaultSearchEngines = true;
+				Default = "brave";
+				PreventInstalls = true;
+			};
 		};
 	};
 	programs.zen-browser.policies.Preferences = {
-		"browser.startup.homepage" = {
-			Value = "about:home";
+		"browser.aboutConfig.showWarning" = {
+			Value = false;
 			Status = "locked";
 		};
 	};
@@ -50,12 +55,82 @@
 						}
 					];
 				};
+				"mynixos" = {
+					name = "My NixOS";
+					urls = [
+						{
+							template = "https://mynixos.com/search?q={searchTerms}";
+							params = [
+								{
+									name = "query";
+									value = "searchTerms";
+								}
+							];
+						}
+					];
+					definedAliases = ["@nix"];
+				};
+				"steamdb" = {
+					name = "SteamDB";
+					urls = [
+						{
+							template = "https://steamdb.info/search/?q={searchTerms}";
+							params = [
+								{
+									name = "query";
+									value = "searchTerms";
+								}
+							];
+						}
+					];
+					definedAliases = ["@steam"];
+				};
+				"protondb" = {
+					name = "ProtonDB";
+					urls = [
+						{
+							template = "https://www.protondb.com/search?q={searchTerms}";
+							params = [
+								{
+									name = "query";
+									value = "searchTerms";
+								}
+							];
+						}
+					];
+					definedAliases = ["@proton"];
+				};
 			};
 		};
 		settings = {
+			# Layout to Sidebar + Toolbar
+			"zen.view.use-single-toolbar" = false;
+			"zen.view.sidebar-expanded" = true;
+			"zen.view.sidebar-expanded.max-width" = 400;
+
+			"layout.spellcheckDefault" = 0;
 			"zen.workspaces.continue-where-left-off" = true;
-			"zen.urlbar.replace-newtab" = false;
 			"zen.welcome-screen.seen" = true;
+			"media.videocontrols.picture-in-picture.video-toggle.enabled" = false;
+
+			# Required by Mod or Extension
+			"browser.ctrlTab.sortByRecentlyUsed" = true; # CTRL+TAB Panel
+			"zen.urlbar.replace-newtab" = false;         # Bonjourr
+
+			# Search Suggestions
+			"browser.urlbar.suggest.addons" = false;
+			"browser.urlbar.suggest.openpage" = false;
+			"browser.urlbar.suggest.recentsearches" = false;
+			"browser.urlbar.suggest.clipboard" = false;
+			"browser.urlbar.suggest.engines" = false;
+			"browser.urlbar.suggest.history" = false;
+			"browser.urlbar.suggest.mdn" = false;
+			"browser.urlbar.suggest.quickactions" = false;
+			"browser.urlbar.suggest.trending" = false;
+			"browser.urlbar.suggest.sports" = false;
+			"browser.urlbar.suggest.weather" = false;
+			"browser.urlbar.suggest.wikipedia" = false;
+			"browser.urlbar.suggest.yelp" = false;
 		};
 		extensions.packages = with inputs.firefox-addons.packages.${system}; [
 			ublock-origin
@@ -66,6 +141,22 @@
 		mods = [
 			# Transparent-Zen
 			"642854b5-88b4-4c40-b256-e035532109df"
+			# Better CTRL+TAB Panel
+			"72f8f48d-86b9-4487-acea-eb4977b18f21"
 		];
+		bookmarks = {
+			force = true;
+			settings = [
+				{
+					name = "bookmarks";
+					bookmarks = [
+						{
+							name = "BraveAI";
+							url = "https://search.brave.com/ask";
+						}
+					];
+				}
+			];
+		};
 	};
 }

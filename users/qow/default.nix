@@ -10,9 +10,15 @@
 
 	programs.vesktop.enable = true;
 
+	home.packages = with pkgs; [
+#		thcrap-steam-proton-wrapper
+		gamescope
+	];
+
 	imports = [
 		./hyprland.nix
 		./zen-browser.nix
 		./spicetify.nix
+		./kitty.nix
 	];
 }
