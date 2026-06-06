@@ -36,6 +36,24 @@ function mod.conf()
 		hl.bind("SHIFT + DOWN" , hl.dsp.window.resize({x=  0,y= 50,relative=true}), {repeating=true})
 		hl.bind("SHIFT + RIGHT", hl.dsp.window.resize({x= 50,y=  0,relative=true}), {repeating=true})
 
+		local function swap_monitor(dir)
+			return function()
+				local src = hl.get_active_monitor()
+				hl.dispatch(hl.dsp.focus({monitor=dir}))
+				local dst = hl.get_active_monitor()
+				hl.dispatch(hl.dsp.workspace.swap_monitors({
+					monitor1 = src,
+					monitor2 = dst,
+				}))
+			end
+		end
+
+		hl.bind("CTRL + SPACE + UP"   , swap_monitor("u"))
+		hl.bind("CTRL + SPACE + LEFT" , swap_monitor("l"))
+		hl.bind("CTRL + SPACE + DOWN" , swap_monitor("d"))
+		hl.bind("CTRL + SPACE + RIGHT", swap_monitor("r"))
+		-- FixMe CTRL closed overview before binds could get executed
+
 		hl.bind("SPACE"  , hl.dsp.no_op())
 		hl.bind("SHIFT_L", hl.dsp.no_op())
 		hl.bind("SHIFT_R", hl.dsp.no_op())
@@ -47,6 +65,7 @@ function mod.conf()
 		local non_consuming = {non_consuming=true}
 		hl.bind("ESCAPE"   , reset)
 		hl.bind("RETURN"   , reset)
+		hl.bind("SUPER"    , reset)
 		hl.bind("catchall" , reset, non_consuming)
 		hl.bind("mouse:272", reset, non_consuming)
 		hl.bind("mouse:273", reset, non_consuming)

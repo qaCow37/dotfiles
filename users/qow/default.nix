@@ -11,8 +11,8 @@
 	programs.vesktop.enable = true;
 
 	home.packages = with pkgs; [
-#		thcrap-steam-proton-wrapper
 		gamescope
+		mangohud
 	];
 
 	imports = [

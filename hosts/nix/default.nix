@@ -21,12 +21,9 @@
 		kitty
 		git
 		fastfetch
-		unzip
-		thcrap-steam-proton-wrapper
 	];
 	hardware.graphics = {
 		enable = true;
 		enable32Bit = true;
 	};
-	programs.hyprland.enable = true;
 }

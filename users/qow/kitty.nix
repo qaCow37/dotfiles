@@ -6,6 +6,8 @@
 			background_opacity 0.0
 			# Let Hyprland handle blur
 			background_blur 1
+
+			font_family
 		'';
 	};
 }
