@@ -158,5 +158,27 @@
 				}
 			];
 		};
+		spaces = {
+			"Personal" = {
+				id = "f6ee1c39-172c-5370-2b11-320409caf2db";
+				position = 1000;
+				theme = {
+					type = "gradient";
+					colors = [
+						{
+							red = 50;
+							green = 50;
+							blue = 50;
+							algorithm = "floating";
+							type = "explicit-lightness";
+							lightness = 0;
+						}
+					];
+					opacity = 0.0;
+					texture = 0.0;
+				};
+			};
+		};
+		spacesForce = true;
 	};
 }

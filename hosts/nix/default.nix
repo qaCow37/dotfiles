@@ -4,6 +4,8 @@
 	boot.loader.efi.canTouchEfiVariables = true;
 
 	imports = [
+		./fonts.nix
+		./sddm.nix
 		./users.nix
 	];
 
@@ -17,13 +19,27 @@
 		wireplumber.enable = true;
 	};
 
-	environment.systemPackages = with pkgs; [
-		kitty
-		git
-		fastfetch
-	];
-	hardware.graphics = {
+	programs.git.enable = true;
+	
+	programs.java = {
 		enable = true;
-		enable32Bit = true;
+		package = pkgs.zulu25;
+	};
+
+	environment.systemPackages = with pkgs; [
+		unzip
+		imagemagick
+		wiremix
+		playerctl
+		zulu11
+		zulu21
+		zenity
+	];
+
+	hardware = {
+		graphics = {
+			enable = true;
+			enable32Bit = true;
+		};
 	};
 }

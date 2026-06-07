@@ -11,6 +11,7 @@
 	programs.vesktop.enable = true;
 
 	home.packages = with pkgs; [
+		modrinth-app
 		gamescope
 		mangohud
 	];

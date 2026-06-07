@@ -52,6 +52,8 @@
 			];
 			extraSpecialArgs = {
 				flakeRoot = self;
+				assets-path = "${self}/assets";
+				config-path = "${self}/config";
 				system = system;
 				inputs = inputs;
 			};

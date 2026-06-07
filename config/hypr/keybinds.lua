@@ -1,83 +1,39 @@
 local mod = {}
 
-function mod.overlap_guard()
-	local n = false
-	return function(dsp, default)
-		if default == true then
-			return function()
-				if n == false then
-					hl.dispatch(dsp)
-				end
-				n = false
-			end
-		else
-			return function()
-				hl.dispatch(dsp)
-				n = true
-			end
-		end
-	end
-end
-
 function mod.conf()
-	hl.bind("SUPER_L", hl.dsp.submap("overview"))
-	hl.define_submap("overview", function()
-		local guard = mod.overlap_guard()
-		hl.bind("SPACE + UP"   , guard(hl.dsp.window.move({direction="u"})))
-		hl.bind("SPACE + LEFT" , guard(hl.dsp.window.move({direction="l"})))
-		hl.bind("SPACE + DOWN" , guard(hl.dsp.window.move({direction="d"})))
-		hl.bind("SPACE + RIGHT", guard(hl.dsp.window.move({direction="r"})))
-		hl.bind("UP"           , guard(hl.dsp.focus({direction="u"}), true))
-		hl.bind("LEFT"         , guard(hl.dsp.focus({direction="l"}), true))
-		hl.bind("DOWN"         , guard(hl.dsp.focus({direction="d"}), true))
-		hl.bind("RIGHT"        , guard(hl.dsp.focus({direction="r"}), true))
-		hl.bind("SHIFT + UP"   , hl.dsp.window.resize({x=  0,y=-50,relative=true}), {repeating=true})
-		hl.bind("SHIFT + LEFT" , hl.dsp.window.resize({x=-50,y=  0,relative=true}), {repeating=true})
-		hl.bind("SHIFT + DOWN" , hl.dsp.window.resize({x=  0,y= 50,relative=true}), {repeating=true})
-		hl.bind("SHIFT + RIGHT", hl.dsp.window.resize({x= 50,y=  0,relative=true}), {repeating=true})
+	local repeating = {repeating=true}
+	-- prevent menu from sending signal to focused apps
+	hl.bind("CTRL+MENU"            , hl.dsp.no_op())
+	hl.bind("SUPER+MENU"           , hl.dsp.no_op())
+	hl.bind("CTRL+SUPER+MENU"      , hl.dsp.no_op())
+	hl.bind("SUPER+UP"             , hl.dsp.focus({direction="u"}))
+	hl.bind("SUPER+LEFT"           , hl.dsp.focus({direction="l"}))
+	hl.bind("SUPER+DOWN"           , hl.dsp.focus({direction="d"}))
+	hl.bind("SUPER+RIGHT"          , hl.dsp.focus({direction="r"}))
+	hl.bind("SUPER+MENU+UP"        , hl.dsp.focus({monitor="u"}))
+	hl.bind("SUPER+MENU+LEFT"      , hl.dsp.focus({monitor="l"}))
+	hl.bind("SUPER+MENU+DOWN"      , hl.dsp.focus({monitor="d"}))
+	hl.bind("SUPER+MENU+RIGHT"     , hl.dsp.focus({monitor="r"}))
+	hl.bind("SUPER+CTRL+UP"        , hl.dsp.window.move({direction="u"}))
+	hl.bind("SUPER+CTRL+LEFT"      , hl.dsp.window.move({direction="l"}))
+	hl.bind("SUPER+CTRL+DOWN"      , hl.dsp.window.move({direction="d"}))
+	hl.bind("SUPER+CTRL+RIGHT"     , hl.dsp.window.move({direction="r"}))
+	hl.bind("SUPER+CTRL+MENU+UP"   , hl.dsp.window.move({monitor="u"}))
+	hl.bind("SUPER+CTRL+MENU+LEFT" , hl.dsp.window.move({monitor="l"}))
+	hl.bind("SUPER+CTRL+MENU+DOWN" , hl.dsp.window.move({monitor="d"}))
+	hl.bind("SUPER+CTRL+MENU+RIGHT", hl.dsp.window.move({monitor="r"}))
+	hl.bind("SUPER+ALT+UP"         , hl.dsp.window.resize({y=-50  ,x=0,relative=true}), repeating)
+	hl.bind("SUPER+ALT+LEFT"       , hl.dsp.window.resize({x=-50  ,y=0,relative=true}), repeating)
+	hl.bind("SUPER+ALT+DOWN"       , hl.dsp.window.resize({y= 50  ,x=0,relative=true}), repeating)
+	hl.bind("SUPER+ALT+RIGHT"      , hl.dsp.window.resize({x= 50  ,y=0,relative=true}), repeating)
+	hl.bind("SUPER+ALT+CTRL+UP"    , hl.dsp.window.resize({y=-1000,x=0,relative=true}), repeating)
+	hl.bind("SUPER+ALT+CTRL+LEFT"  , hl.dsp.window.resize({x=-1000,y=0,relative=true}), repeating)
+	hl.bind("SUPER+ALT+CTRL+DOWN"  , hl.dsp.window.resize({y= 1000,x=0,relative=true}), repeating)
+	hl.bind("SUPER+ALT+CTRL+RIGHT" , hl.dsp.window.resize({x= 1000,y=0,relative=true}), repeating)
 
-		local function swap_monitor(dir)
-			return function()
-				local src = hl.get_active_monitor()
-				hl.dispatch(hl.dsp.focus({monitor=dir}))
-				local dst = hl.get_active_monitor()
-				hl.dispatch(hl.dsp.workspace.swap_monitors({
-					monitor1 = src,
-					monitor2 = dst,
-				}))
-			end
-		end
-
-		hl.bind("CTRL + SPACE + UP"   , swap_monitor("u"))
-		hl.bind("CTRL + SPACE + LEFT" , swap_monitor("l"))
-		hl.bind("CTRL + SPACE + DOWN" , swap_monitor("d"))
-		hl.bind("CTRL + SPACE + RIGHT", swap_monitor("r"))
-		-- FixMe CTRL closed overview before binds could get executed
-
-		hl.bind("SPACE"  , hl.dsp.no_op())
-		hl.bind("SHIFT_L", hl.dsp.no_op())
-		hl.bind("SHIFT_R", hl.dsp.no_op())
-
-		local function reset()
-			hl.dispatch(hl.dsp.submap("reset"))
-		end
-
-		local non_consuming = {non_consuming=true}
-		hl.bind("ESCAPE"   , reset)
-		hl.bind("RETURN"   , reset)
-		hl.bind("SUPER"    , reset)
-		hl.bind("catchall" , reset, non_consuming)
-		hl.bind("mouse:272", reset, non_consuming)
-		hl.bind("mouse:273", reset, non_consuming)
-		hl.bind("mouse:274", reset, non_consuming)
-		hl.bind("mouse:275", reset, non_consuming)
-		hl.bind("mouse:276", reset, non_consuming)
-	end)
-
-	local universal = {submap_universal=true}
-	hl.bind("CTRL + ALT + T"  , hl.dsp.exec_cmd("kitty"), universal)
-	hl.bind("ALT         + F4", hl.dsp.window.close()   , universal)
-	hl.bind("ALT + SHIFT + F4", hl.dsp.window.kill()    , universal)
+	hl.bind("CTRL + ALT + T"    , hl.dsp.exec_cmd("kitty"))
+	hl.bind("SUPER         + F4", hl.dsp.window.close())
+	hl.bind("SUPER + SHIFT + F4", hl.dsp.window.kill())
 end
 
 return mod
