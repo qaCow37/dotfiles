@@ -2,6 +2,7 @@
 	description = "NixOS Flake for my System";
 	inputs = {
 		nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+		cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel";
 		home-manager = {
 			url = "github:nix-community/home-manager";
 			inputs.nixpkgs.follows = "nixpkgs";
@@ -27,36 +28,75 @@
 				allowUnfree = true;
 			};
 		};
+		defaultSpecialArgs = {
+			system = system;
+			inputs = inputs;
+			flake-config = {
+				cachyos-kernel = false;
+			};
+			path = {
+				root   = "${self}";
+				assets = "${self}/assets";
+				config = "${self}/config";
+			};
+		};
 	in
 	{
-		nixosConfigurations.nix = nixpkgs.lib.nixosSystem {
-			inherit pkgs system;
-			modules = [
-				{
-					networking.hostName = "nix";
-					environment.systemPackages = [
-						home-manager.packages.${system}.home-manager
-					];
-				}
-				./hosts/nix
-				/etc/nixos/hardware-configuration.nix
-			];
-			specialArgs = {inputs=inputs;};
+		nixosConfigurations =
+		let
+			hostNameMod =
+			{
+				networking.hostName = "nix";
+			};
+			homeManagerMod =
+			{
+				environment.systemPackages = [
+					home-manager.packages.${system}.home-manager
+				];
+			};
+			overlaysMod =
+			{
+				nixpkgs.overlays = with inputs; [
+					cachyos-kernel.overlays.default
+				];
+			};
+		in
+		{
+			"nix" = nixpkgs.lib.nixosSystem {
+				inherit pkgs system;
+				modules = [
+					hostNameMod
+					homeManagerMod
+					overlaysMod
+					./hosts/nix
+					/etc/nixos/hardware-configuration.nix
+				];
+				specialArgs = pkgs.lib.recursiveUpdate defaultSpecialArgs {
+					flake-config = {
+						cachyos-kernel = true;
+					};
+				};
+			};
+			"nix-default-kernel" = nixpkgs.lib.nixosSystem {
+				inherit pkgs system;
+				modules = [
+					hostNameMod
+					homeManagerMod
+					overlaysMod
+					./hosts/nix
+					/etc/nixos/hardware-configuration.nix
+				];
+				specialArgs = defaultSpecialArgs;
+			};
 		};
-		homeConfigurations.qow = home-manager.lib.homeManagerConfiguration {
+		homeConfigurations."qow" = home-manager.lib.homeManagerConfiguration {
 			inherit pkgs;
 			modules = [
 				inputs.spicetify-nix.homeManagerModules.spicetify
 				inputs.zen-browser.homeModules.beta
 				./users/qow
 			];
-			extraSpecialArgs = {
-				flakeRoot = self;
-				assets-path = "${self}/assets";
-				config-path = "${self}/config";
-				system = system;
-				inputs = inputs;
-			};
+			extraSpecialArgs = defaultSpecialArgs;
 		};
 	};
 }

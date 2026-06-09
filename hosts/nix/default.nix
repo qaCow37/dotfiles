@@ -1,11 +1,10 @@
 {config, pkgs, inputs, ...}:
 {
-	boot.loader.systemd-boot.enable = true;
-	boot.loader.efi.canTouchEfiVariables = true;
-
 	imports = [
+		./boot.nix
 		./fonts.nix
-		./sddm.nix
+		./shell.nix
+		./greet.nix
 		./users.nix
 	];
 
@@ -30,10 +29,8 @@
 		unzip
 		imagemagick
 		wiremix
-		playerctl
-		zulu11
-		zulu21
 		zenity
+		jq
 	];
 
 	hardware = {
@@ -41,5 +38,10 @@
 			enable = true;
 			enable32Bit = true;
 		};
+	};
+
+	services.playerctld = {
+		enable = true;
+		package = pkgs.playerctl;
 	};
 }

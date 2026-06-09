@@ -17,9 +17,10 @@
 	];
 
 	imports = [
-		./hyprland.nix
+		./desktop.nix
 		./zen-browser.nix
 		./spicetify.nix
 		./kitty.nix
+		./shell.nix
 	];
 }
