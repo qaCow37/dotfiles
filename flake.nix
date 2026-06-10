@@ -2,7 +2,10 @@
 	description = "NixOS Flake for my System";
 	inputs = {
 		nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-		cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel";
+		cachyos-kernel = {
+			url = "github:xddxdd/nix-cachyos-kernel";
+			inputs.nixpkgs.follows = "nixpkgs";
+		};
 		home-manager = {
 			url = "github:nix-community/home-manager";
 			inputs.nixpkgs.follows = "nixpkgs";
@@ -16,7 +19,18 @@
 			url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
-		spicetify-nix.url = "github:Gerg-L/spicetify-nix";
+		spicetify-nix = {
+			url = "github:Gerg-L/spicetify-nix";
+			inputs.nixpkgs.follows = "nixpkgs";
+		};
+		yazi = {
+			url = "github:sxyazi/yazi";
+			inputs.nixpkgs.follows = "nixpkgs";
+		};
+		nixvim = {
+			url = "github:nix-community/nixvim";
+			inputs.nixpkgs.follows = "nixpkgs";
+		};
 	};
 
 	outputs = {self, nixpkgs, home-manager, ...}@inputs:
@@ -94,6 +108,7 @@
 			modules = [
 				inputs.spicetify-nix.homeManagerModules.spicetify
 				inputs.zen-browser.homeModules.beta
+				inputs.nixvim.homeModules.nixvim
 				./users/qow
 			];
 			extraSpecialArgs = defaultSpecialArgs;

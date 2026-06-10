@@ -68,25 +68,25 @@
 		}
 
 		binds {
-			CTRL+ALT+T repeat=false { spawn "kitty"; }
-			Mod+Left            { focus-column-left;             }
-			Mod+Right           { focus-column-right;            }
-			Mod+Up              { focus-workspace-up;            }
-			Mod+Down            { focus-workspace-down;          }
-			Mod+Ctrl+Left       { move-column-left;              }
-			Mod+Ctrl+Right      { move-column-right;             }
-			Mod+Ctrl+Up         { move-window-to-workspace-up;   }
-			Mod+Ctrl+Down       { move-window-to-workspace-down; }
-			Mod+Shift+Up        { set-column-width "100%";       }
-			Mod+Shift+Down      { set-column-width  "50%";       }
-			Mod+Alt+Left        { focus-monitor-left;            }
-			Mod+Alt+Right       { focus-monitor-right;           }
-			Mod+Alt+Up          { focus-monitor-up;              }
-			Mod+Alt+Down        { focus-monitor-down;            }
-			Mod+Alt+Ctrl+Left   { move-window-to-monitor-left;   }
-			Mod+Alt+Ctrl+Right  { move-window-to-monitor-right;  }
-			Mod+Alt+Ctrl+Up     { move-window-to-monitor-up;     }
-			Mod+Alt+Ctrl+Down   { move-window-to-monitor-down;   }
+			Mod+T repeat=false { spawn "kitty"; }
+			Mod+H          { focus-column-left;             }
+			Mod+L          { focus-column-right;            }
+			Mod+J          { focus-workspace-down;          }
+			Mod+K          { focus-workspace-up;            }
+			Mod+Ctrl+H     { move-column-left;              }
+			Mod+Ctrl+L     { move-column-right;             }
+			Mod+Ctrl+J     { move-window-to-workspace-down; }
+			Mod+Ctrl+K     { move-window-to-workspace-up;   }
+			Mod+Shift+J    { set-column-width  "50%";       }
+			Mod+Shift+K    { set-column-width "100%";       }
+			Mod+Alt+H      { focus-monitor-left;            }
+			Mod+Alt+L      { focus-monitor-right;           }
+			Mod+Alt+J      { focus-monitor-down;            }
+			Mod+Alt+K      { focus-monitor-up;              }
+			Mod+Alt+Ctrl+H { move-window-to-monitor-left;   }
+			Mod+Alt+Ctrl+L { move-window-to-monitor-right;  }
+			Mod+Alt+Ctrl+J { move-window-to-monitor-down;   }
+			Mod+Alt+Ctrl+K { move-window-to-monitor-up;     }
 			Mod+F4       repeat=false { close-window;   }
 			Mod+Shift+F4 repeat=false { ${kill-window}; }
 			

@@ -134,13 +134,13 @@
 		};
 		extensions.packages = with inputs.firefox-addons.packages.${system}; [
 			ublock-origin
-			zen-internet
+			# zen-internet # currently does not work on Niri
 			darkreader
 			bonjourr-startpage
 		];
 		mods = [
-			# Transparent-Zen
-			"642854b5-88b4-4c40-b256-e035532109df"
+			# Transparent-Zen - currently does not work on Niri
+			# "642854b5-88b4-4c40-b256-e035532109df"
 			# Better CTRL+TAB Panel
 			"72f8f48d-86b9-4487-acea-eb4977b18f21"
 		];

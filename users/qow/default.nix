@@ -7,20 +7,25 @@
 		username = "qow";
 		homeDirectory = "/home/qow";
 	};
+	
+	#services.udiskie = {
+	#	enable = true;
+	#	notify = false;
+	#};
 
 	programs.vesktop.enable = true;
 
 	home.packages = with pkgs; [
+		# move into own apps or some shi
 		modrinth-app
 		gamescope
 		mangohud
+		krita
 	];
 
 	imports = [
 		./desktop.nix
-		./zen-browser.nix
-		./spicetify.nix
-		./kitty.nix
 		./shell.nix
+		./apps
 	];
 }
