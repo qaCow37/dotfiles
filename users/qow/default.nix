@@ -1,4 +1,4 @@
-{config, pkgs, inputs, ...}:
+{pkgs, ...}:
 {
 	nixpkgs.config.allowUnfree = true;
 	
@@ -8,16 +8,24 @@
 		homeDirectory = "/home/qow";
 	};
 	
-	#services.udiskie = {
-	#	enable = true;
-	#	notify = false;
-	#};
+	xdg.userDirs = {
+		enable = true;
+		createDirectories = true;
+		desktop     = "$HOME/assets/desktop";
+		music       = "$HOME/assets/music";
+		videos      = "$HOME/assets/videos";
+		pictures    = "$HOME/assets/pictures";
+		projects    = "$HOME/assets/projects";
+		documents   = "$HOME/assets/documents";
+		templates   = "$HOME/assets/templates";
+		publicShare = "$HOME/assets/public-share";
+		download    = "$HOME/downloads";
+	};
 
 	programs.vesktop.enable = true;
 
 	home.packages = with pkgs; [
-		# move into own apps or some shi
-		modrinth-app
+		#modrinth-app
 		gamescope
 		mangohud
 		krita
@@ -26,6 +34,7 @@
 	imports = [
 		./desktop.nix
 		./shell.nix
+		./devenv.nix
 		./apps
 	];
 }

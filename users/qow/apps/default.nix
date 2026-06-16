@@ -5,6 +5,6 @@
 		./zen-browser.nix
 		./kitty.nix
 		./yazi.nix
-		./nvim.nix
+		./nvim
 	];
 }

@@ -33,6 +33,10 @@
 		wiremix
 		zenity
 		jq
+		wl-clipboard
+		xwayland-satellite
+		cargo
+		rustc
 	];
 
 	hardware = {

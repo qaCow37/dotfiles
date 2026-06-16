@@ -9,6 +9,7 @@
 			liberation_ttf
 			fira-code
 			fira-code-symbols
+			nerd-fonts.jetbrains-mono
 		];
 	};
 }

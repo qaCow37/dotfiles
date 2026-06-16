@@ -19,7 +19,7 @@
 			url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
-		spicetify-nix = {
+		spicetify = {
 			url = "github:Gerg-L/spicetify-nix";
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
@@ -29,6 +29,14 @@
 		};
 		nixvim = {
 			url = "github:nix-community/nixvim";
+			inputs.nixpkgs.follows = "nixpkgs";
+		};
+		#thcrap = {
+		#	url = "path:/home/qow/thcrap-flake";
+		#	inputs.nixpkgs.follows = "nixpkgs";
+		#};
+		minecraft-client = {
+			url = "github:loystonpais/nixcraft";
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
 	};
@@ -42,6 +50,7 @@
 				allowUnfree = true;
 			};
 		};
+		hostname = "nix";
 		defaultSpecialArgs = {
 			system = system;
 			inputs = inputs;
@@ -53,6 +62,7 @@
 				assets = "${self}/assets";
 				config = "${self}/config";
 			};
+			hostname = hostname;
 		};
 	in
 	{
@@ -60,7 +70,7 @@
 		let
 			hostNameMod =
 			{
-				networking.hostName = "nix";
+				networking.hostName = hostname;
 			};
 			homeManagerMod =
 			{
@@ -76,7 +86,7 @@
 			};
 		in
 		{
-			"nix" = nixpkgs.lib.nixosSystem {
+			${hostname} = nixpkgs.lib.nixosSystem {
 				inherit pkgs system;
 				modules = [
 					hostNameMod
@@ -91,7 +101,7 @@
 					};
 				};
 			};
-			"nix-default-kernel" = nixpkgs.lib.nixosSystem {
+			"${hostname}-default-kernel" = nixpkgs.lib.nixosSystem {
 				inherit pkgs system;
 				modules = [
 					hostNameMod
@@ -106,12 +116,40 @@
 		homeConfigurations."qow" = home-manager.lib.homeManagerConfiguration {
 			inherit pkgs;
 			modules = [
-				inputs.spicetify-nix.homeManagerModules.spicetify
+				inputs.spicetify.homeManagerModules.spicetify
 				inputs.zen-browser.homeModules.beta
 				inputs.nixvim.homeModules.nixvim
+				inputs.minecraft-client.homeModules.default
+				/*inputs.thcrap.homeModules.thcrap
+				{
+						config = {
+							patches = [
+								{
+									id = "en";
+									patches = [
+										{
+											id = "base_tsa";
+											repo = "nmlgc";
+										}
+									];
+								}
+							];
+							#repositories = [
+							#	{
+							#		name = "nmlgc";
+							#		url = "https://mirrors.thpatch.net/nmlgc/repo.js";
+							#		hash = "sha256-OgCjUYafxJGEYGULkmdFnaTxbU+UAe1aj1krIM3PRUc=";
+							#	}
+							#];
+							wrapper-script.enable = true;
+						};
+					};
+				}*/
 				./users/qow
 			];
-			extraSpecialArgs = defaultSpecialArgs;
+			extraSpecialArgs = defaultSpecialArgs // {
+				username = "qow";
+			};
 		};
 	};
 }

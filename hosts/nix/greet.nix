@@ -1,20 +1,16 @@
-{config, pkgs, ...}:
+{pkgs, ...}:
 {
 	programs.niri = {
 		enable = true;
 		package = pkgs.niri;
 	};
-	#programs.uwsm = {
-	#	enable = true;
-	#	waylandCompositors = {
-	#		niri = {
-	#			prettyName = "Niri";
-	#			comment = "Scrollable-tiling Wayland compositor";
-	#			binPath = "${config.programs.niri.package}/bin/niri-session";
-	#		};
-	#	};
-	#};
-	#systemd.user.services.niri.enable = false;
+	
+	# Maybe i will switch to hyprland again
+	programs.hyprland = {
+		enable = true;
+		xwayland.enable = false;
+		withUWSM = true;
+	};
 
 	services.displayManager.ly = {
 		enable = true;
@@ -22,4 +18,6 @@
 			clock = "%c";
 		};
 	};
+	# ensure that ly renders correctly only on primary monitor
+	boot.kernelParams = ["video=2560x1440"];
 }

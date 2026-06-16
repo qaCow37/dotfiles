@@ -1,4 +1,4 @@
-{pkgs, ...}:
+{pkgs, path, ...}:
 {
 	programs.fish = {
 		enable = true;
@@ -15,49 +15,117 @@
 		interactiveShellInit = ''
 			clear
 			set -g fish_greeting
+			fish_vi_key_bindings
 		'';
 	};
 	programs.starship = {
 		enable = true;
 		enableFishIntegration = true;
 		settings = {
-			# customize at some point
+			
 		};
 	};
 	programs.fastfetch = {
 		enable = true;
 		package = pkgs.fastfetch;
 		settings = {
-			display = {
-				separator = "  ";
-				key = {
-					width = 14;
-				};
-				color = {
-					keys = "blue";
+			logo = {
+				type = "auto";
+				source = "${path.assets}/fastfetch/logo.png";
+				height = 12;
+				preserveAspectRatio = true;
+				padding = {
+					top = 0;
+					left = 0;
+					right = 5;
 				};
 			};
-			logo = {
-				source = "nixos_small";
-				padding.left  = 2;
-				padding.right = 2;
+			display = {
+				showErrors = true;
+				separator = "  ";
+				size = {
+					binaryPrefix = "jedec";
+					ndigits = 0;
+					spaceBeforeUnit = "never";
+				};
+				key = {
+					width = 0;
+				};
+				color = {
+					keys = "light_blue";
+				};
+				constants = [
+					"────────"
+					"───────────────"
+					"   "
+				];
 			};
 			modules = [
 				{
 					type = "datetime";
-					key = "Date";
-					format = "{8} - {14}:{18}";
+					key = " ";
+					keyWidth = 0;
+					format = "┌{$1}  {weekday-short} - {hour-pretty}:{minute-pretty}  {$1}┐";
 				}
-				"os"
-				"kernel"
-				"packages"
-				"cpu"
+				{
+					type = "os";
+					key = " {$3}sys";
+					format = "{pretty-name}";
+				}
+				{
+					type = "kernel";
+					key = "{#97}S{#light_blue}{$3}ker";
+					format = "{release}";
+				}
+				{
+					type = "wm";
+					key = "{#97}Y{#light_blue}{$3}wmn";
+					format = "{pretty-name}";
+				}
+				{
+					type = "shell";
+					key = "{#97}S{#light_blue}{$3}shl";
+					format = "{pretty-name}";
+				}
+				{
+					type = "packages";
+					key = " {$3}pkg";
+					format = "{all}";
+				}
+				{
+					type = "custom";
+					key = " ";
+					keyWidth = 0;
+					format = "├───────";
+				}
+				{
+					type = "cpu";
+					key = " {$3}cpu";
+					format = "{name}";
+				}
 				{
 					type = "gpu";
+					key = "{#97}H{#light_blue}{$3}gpu";
+					format = "{name}";
 					hideType = "integrated";
-					driverSpecific = false;
 				}
-				"memory"
+				{
+					type = "memory";
+					key = "{#97}W{#light_blue}{$3}mem";
+					format = "{used} / {total}";
+				}
+				{
+					type = "disk";
+					key = " {$3}dsk";
+					format = "{filesystem}: {size-total}";
+					folders = "/";
+				}
+				{
+					type = "custom";
+					key = " ";
+					keyWidth = 0;
+					format = "└{$1}{$2}{$1}┘";
+				}
 			];
 		};
 	};

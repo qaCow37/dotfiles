@@ -1,6 +1,6 @@
-{config, pkgs, inputs, system, ...}:
+{inputs, system, ...}:
 let
-	spicePkgs = inputs.spicetify-nix.legacyPackages.${system};
+	spicePkgs = inputs.spicetify.legacyPackages.${system};
 in
 {
 	programs.spicetify = {
@@ -8,6 +8,7 @@ in
 		enabledExtensions = with spicePkgs.extensions; [
 			shuffle
 			volumePercentage
+			keyboardShortcut
 		];
 		enabledSnippets = [
 			# "title" = "Declutter now playing bar";
