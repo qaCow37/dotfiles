@@ -1,4 +1,4 @@
-{config, pkgs, path, ...}:
+{pkgs, path, ...}:
 {
 	home.pointerCursor = {
 		package = pkgs.bibata-cursors;
@@ -7,23 +7,6 @@
 		gtk.enable = true;
 		x11.enable = true;
 	};
-	
-	/*xdg.portal = {
-		enable = true;
-		extraPortals = with pkgs; [
-			xdg-desktop-portal-termfilechooser
-		];
-		config.common."org.freedesktop.impl.portal.FileChooser" = ["termfilechooser"];
-	};
-
-	xdg.configFile."xdg-desktop-portal-termfilechooser/config" = {
-		force = true;
-		text = ''
-			[filechooser]
-			cmd=${pkgs.xdg-desktop-portal-termfilechooser}/share/xdg-desktop-portal-termfilechooser/yazi-wrapper.sh
-			env=TERMCMD=kitty --class=file_chooser
-		'';
-	};*/
 
 	xdg.configFile."niri/config.kdl" = {
 		force = true;
@@ -32,36 +15,35 @@
 		in
 		''
 			output "DP-1" {
-				mode "2560x1440@239.992"	
-				scale 1
-				position x=1280 y=1080
-				focus-at-startup
-			}
-			output "DP-2" {	
-				mode "1920x1080@144.001"
+				mode "2560x1440@239.992"
 				scale 1
 				position x=1280 y=0
+				focus-at-startup
 			}
-			output "DP-3" {
+			output "DP-2" {
 				mode "1280x1024@75.025"
 				scale 1
-				position x=0 y=1080
+				position x=0 y=0
 			}
 			prefer-no-csd
-			
+
 			hotkey-overlay {
 					skip-at-startup
 			}
-			
+
 			input {
 				keyboard {
-					repeat-delay 250
+					repeat-delay 150
+					repeat-rate 50
 				}
 			}
 			gestures {
 				hot-corners {
 					off
 				}
+			}
+			recent-windows {
+				off
 			}
 
 			cursor {
@@ -72,21 +54,24 @@
 			}
 
 			blur {
-				passes 4
-				offset 12
-				noise 0.0
+				passes 5
+				offset 8
+				noise 0.02
 				saturation 1.0
 			}
 			window-rule {
-				match app-id="kitty"
 				background-effect {
 					blur true
 					xray false
 				}
-			}
-			window-rule {
 				geometry-corner-radius 12
 				clip-to-geometry true
+			}
+
+			// Fixes bluring issues for zen-browser
+			window-rule {
+				match app-id="zen-beta"
+				draw-border-with-background false
 			}
 
 			layout {
@@ -103,22 +88,15 @@
 				Mod+J          { focus-workspace-down;          }
 				Mod+K          { focus-workspace-up;            }
 				Mod+M          { switch-preset-column-width;    }
-				Mod+C          { center-column;                 }
 				Mod+Ctrl+H     { move-column-left;              }
 				Mod+Ctrl+L     { move-column-right;             }
 				Mod+Ctrl+J     { move-window-to-workspace-down; }
 				Mod+Ctrl+K     { move-window-to-workspace-up;   }
-				Mod+Alt+H      { focus-monitor-left;            }
-				Mod+Alt+L      { focus-monitor-right;           }
-				Mod+Alt+J      { focus-monitor-down;            }
-				Mod+Alt+K      { focus-monitor-up;              }
-				Mod+Alt+Ctrl+H { move-window-to-monitor-left;   }
-				Mod+Alt+Ctrl+L { move-window-to-monitor-right;  }
-				Mod+Alt+Ctrl+J { move-window-to-monitor-down;   }
-				Mod+Alt+Ctrl+K { move-window-to-monitor-up;     }
+				Mod+N          { focus-monitor-next;            }
+				Mod+Ctrl+N     { move-column-to-monitor-next;   }
 				Mod+F4       repeat=false { close-window;   }
 				Mod+Shift+F4 repeat=false { ${kill-window}; }
-				
+
 				XF86AudioPlay             { spawn "playerctl" "play-pause"; }
 				XF86AudioStop             { spawn "playerctl" "stop";       }
 				XF86AudioNext             { spawn "playerctl" "next";       }
@@ -131,32 +109,6 @@
 		'';
 	};
 
-	# Maybe i will switch to hpyrland again...
-	wayland.windowManager.hyprland = {
-		enable = true;
-		xwayland.enable = false;
-		configType = "lua";
-		extraLuaFiles = let cpath = (f: builtins.path {path="${path.config}/hypr/${f}";}); in
-		{
-			"layout.lua" = {
-				autoLoad = true;
-				content = cpath "layout.lua";
-			};
-			"input.lua" = {
-				autoLoad = true;
-				content = cpath "input.lua";
-			};
-			"output.lua" = {
-				autoLoad = true;
-				content = cpath "output.lua";
-			};
-			"decoration.lua" = {
-				autoLoad = true;
-				content = cpath "decoration.lua";
-			};
-		};
-	};
-	
 	services.hyprpaper = {
 		enable = true;
 		settings =
@@ -179,5 +131,14 @@
 				}
 			];
 		};
+	};
+
+	home.packages = with pkgs; [
+		qt5.qtwayland
+		qt6.qtwayland
+	];
+	home.sessionVariables = {
+		QT_QPA_PLATFORM = "wayland";
+		QT_QPA_PLATFORMTHEME = "qt5ct";
 	};
 }

@@ -21,7 +21,8 @@
 	services.udisks2.enable = true;
 
 	programs.git.enable = true;
-	
+	programs.localsend.enable = true;
+
 	programs.java = {
 		enable = true;
 		package = pkgs.zulu25;
@@ -34,9 +35,10 @@
 		zenity
 		jq
 		wl-clipboard
-		xwayland-satellite
+		#xwayland-satellite
 		cargo
 		rustc
+		tuigreet
 	];
 
 	hardware = {

@@ -22,16 +22,16 @@
 		download    = "$HOME/downloads";
 	};
 
-	programs.vesktop.enable = true;
-
 	home.packages = with pkgs; [
 		#modrinth-app
 		gamescope
 		mangohud
 		krita
+		xwayland-satellite
 	];
 
 	imports = [
+		./catppuccin.nix
 		./desktop.nix
 		./shell.nix
 		./devenv.nix

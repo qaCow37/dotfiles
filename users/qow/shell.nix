@@ -1,4 +1,4 @@
-{pkgs, path, ...}:
+{lib, pkgs, path, ...}:
 {
 	programs.fish = {
 		enable = true;
@@ -18,13 +18,35 @@
 			fish_vi_key_bindings
 		'';
 	};
+	catppuccin.fish.enable = true;
+	
 	programs.starship = {
 		enable = true;
 		enableFishIntegration = true;
 		settings = {
-			
+			add_newline = false;
+
+			format = lib.concatStrings [
+				"$directory◣"
+				"$time"
+				"$line_break"
+				"$character"
+			];
+
+			directory = {
+				truncation_length = 3;
+				truncate_to_repo = false;
+				truncation_symbol = "…/";
+			};
+			time = {
+				format = "[$time]($style)";
+				time_format = "%H:%M";
+				disabled = false;
+			};
 		};
 	};
+	catppuccin.starship.enable = true;
+	
 	programs.fastfetch = {
 		enable = true;
 		package = pkgs.fastfetch;
