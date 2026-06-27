@@ -48,10 +48,10 @@
 			url = "github:nix-community/nixvim";
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
-		prismlauncher = {
-			url = "path:/home/qow/prismlauncher-nix";
-			inputs.nixpkgs.follows = "nixpkgs";
-		};
+		# prismlauncher = {
+		# 	url = "path:/home/qow/prismlauncher-nix";
+		# 	inputs.nixpkgs.follows = "nixpkgs";
+		# };
 		#thcrap = {
 		#	url = "path:/home/qow/thcrap-flake";
 		#	inputs.nixpkgs.follows = "nixpkgs";
@@ -154,25 +154,25 @@
 						};
 					};
 				}*/
-				inputs.prismlauncher.homeModules.prismlauncher-nix
-				{
-					programs.prismlauncher-nix = {
-						enable = true;
-						instances = {
-							"main" = {
-								config = {
-									general = {
-										name = "main";
-									};
-								};
-								components = with inputs.prismlauncher.components; [
-									(minecraft "1.21.11")
-									fabric
-								];
-							};
-						};
-					};
-				}
+				# inputs.prismlauncher.homeModules.prismlauncher-nix
+				# {
+				# 	programs.prismlauncher-nix = {
+				# 		enable = true;
+				# 		instances = {
+				# 			"main" = {
+				# 				config = {
+				# 					general = {
+				# 						name = "main";
+				# 					};
+				# 				};
+				# 				components = with inputs.prismlauncher.components; [
+				# 					(minecraft "1.21.11")
+				# 					fabric
+				# 				];
+				# 			};
+				# 		};
+				# 	};
+				# }
 				./users/qow
 			];
 			extraSpecialArgs = defaultSpecialArgs // {

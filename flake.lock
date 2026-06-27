@@ -223,22 +223,6 @@
         "type": "github"
       }
     },
-    "libnbtplusplus": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1772016279,
-        "narHash": "sha256-7itkptyjoRcXfGLwg1/jxajetZ3a4mDc66+w4X6yW8s=",
-        "owner": "PrismLauncher",
-        "repo": "libnbtplusplus",
-        "rev": "687e43031df0dc641984b4256bcca50d5b3f7de3",
-        "type": "github"
-      },
-      "original": {
-        "owner": "PrismLauncher",
-        "repo": "libnbtplusplus",
-        "type": "github"
-      }
-    },
     "nixcord": {
       "inputs": {
         "flake-compat": "flake-compat_2",
@@ -346,46 +330,6 @@
         "type": "github"
       }
     },
-    "prismlauncher": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ],
-        "prismlauncher": "prismlauncher_2"
-      },
-      "locked": {
-        "lastModified": 1782497559,
-        "narHash": "sha256-oboYUaCh6yzHl54kEBDUR2pjSbKrAxCnKi2jZpBDgsc=",
-        "path": "/home/qow/prismlauncher-nix",
-        "type": "path"
-      },
-      "original": {
-        "path": "/home/qow/prismlauncher-nix",
-        "type": "path"
-      }
-    },
-    "prismlauncher_2": {
-      "inputs": {
-        "libnbtplusplus": "libnbtplusplus",
-        "nixpkgs": [
-          "prismlauncher",
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1782480219,
-        "narHash": "sha256-xzmiFJfZ+glNrVcUVzKJgxC0jA1RHPaBDEh0Fxsu/jQ=",
-        "owner": "PrismLauncher",
-        "repo": "PrismLauncher",
-        "rev": "d2fa7cf7f7aa8fa5e3d4f5f7b474621c732cd525",
-        "type": "github"
-      },
-      "original": {
-        "owner": "PrismLauncher",
-        "repo": "PrismLauncher",
-        "type": "github"
-      }
-    },
     "root": {
       "inputs": {
         "cachyos-kernel": "cachyos-kernel",
@@ -395,7 +339,6 @@
         "nixcord": "nixcord",
         "nixpkgs": "nixpkgs",
         "nixvim": "nixvim",
-        "prismlauncher": "prismlauncher",
         "spicetify": "spicetify",
         "yazi": "yazi",
         "zen-browser": "zen-browser"
