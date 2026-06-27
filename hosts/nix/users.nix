@@ -1,15 +1,16 @@
-{pkgs, ...}:{
-	users.users."qow" = {
-		isNormalUser = true;
-		extraGroups = ["wheel"];
-		createHome = true;
-		shell = pkgs.fish;
+{config, lib, pkgs, ...}:{
+	options.option = {
+		users = lib.mkOption {
+			type = lib.types.bool;
+			default = true;
+		};
 	};
-
-	environment.sessionVariables = {
-		XDG_DATA_HOME   = "$HOME/.local/share";
-		XDG_CONFIG_HOME = "$HOME/.config";
-		XDG_CACHE_HOME  = "$HOME/.cache";
-		XDG_STATE_HOME  = "$HOME/.local/state";
+	config.users = lib.mkIf config.option.users {
+		users."qow" = {
+			isNormalUser = true;
+			extraGroups = ["wheel"];
+			createHome = true;
+			shell = pkgs.fish;
+		};
 	};
 }

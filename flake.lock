@@ -346,38 +346,38 @@
         "type": "github"
       }
     },
-    "prism-nix": {
+    "prismlauncher": {
       "inputs": {
         "nixpkgs": [
           "nixpkgs"
         ],
-        "prismlauncher": "prismlauncher"
+        "prismlauncher": "prismlauncher_2"
       },
       "locked": {
-        "lastModified": 1782140229,
-        "narHash": "sha256-faNh4wUcD+XmwkavHT5fBkXQbJxp698bN/gtrpGOnwE=",
-        "path": "/home/qow/prism-nix",
+        "lastModified": 1782497559,
+        "narHash": "sha256-oboYUaCh6yzHl54kEBDUR2pjSbKrAxCnKi2jZpBDgsc=",
+        "path": "/home/qow/prismlauncher-nix",
         "type": "path"
       },
       "original": {
-        "path": "/home/qow/prism-nix",
+        "path": "/home/qow/prismlauncher-nix",
         "type": "path"
       }
     },
-    "prismlauncher": {
+    "prismlauncher_2": {
       "inputs": {
         "libnbtplusplus": "libnbtplusplus",
         "nixpkgs": [
-          "prism-nix",
+          "prismlauncher",
           "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1781690232,
-        "narHash": "sha256-OX45Qq7O8oapL83vpV2+NXmcFqTy8Cb4hyqgaX5Xo5I=",
+        "lastModified": 1782480219,
+        "narHash": "sha256-xzmiFJfZ+glNrVcUVzKJgxC0jA1RHPaBDEh0Fxsu/jQ=",
         "owner": "PrismLauncher",
         "repo": "PrismLauncher",
-        "rev": "f654ce821291b8b8db1f52850dec9e48ede1866f",
+        "rev": "d2fa7cf7f7aa8fa5e3d4f5f7b474621c732cd525",
         "type": "github"
       },
       "original": {
@@ -395,7 +395,7 @@
         "nixcord": "nixcord",
         "nixpkgs": "nixpkgs",
         "nixvim": "nixvim",
-        "prism-nix": "prism-nix",
+        "prismlauncher": "prismlauncher",
         "spicetify": "spicetify",
         "yazi": "yazi",
         "zen-browser": "zen-browser"
@@ -521,11 +521,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1781820312,
-        "narHash": "sha256-tTFfF/wIXGH9B+m8r0g23UkzkmM3jBgWnqGC4/NFzrs=",
+        "lastModified": 1782144240,
+        "narHash": "sha256-RgCWSv7AJZCwPhCzz+J0lvwp1WBz9ouvCnnlmvu0xfw=",
         "owner": "0xc000022070",
         "repo": "zen-browser-flake",
-        "rev": "f1b189bea5972ceee02628f913f2f342ce96e21e",
+        "rev": "d1693556428967f8b4eef128feb090421ddcaf15",
         "type": "github"
       },
       "original": {

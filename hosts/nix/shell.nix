@@ -1,10 +1,12 @@
-{pkgs, ...}:
+{config, lib, pkgs, ...}:
 {
-	programs.fish = {
-		enable = true;
-		package = pkgs.fish;
+	config = {
+		programs.fish = {
+			enable = true;
+			package = pkgs.fish;
+		};
+		environment.systemPackages = [
+			pkgs.fastfetch
+		];
 	};
-	environment.systemPackages = [
-		pkgs.fastfetch
-	];
 }

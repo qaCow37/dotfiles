@@ -101,10 +101,10 @@
 				XF86AudioStop             { spawn "playerctl" "stop";       }
 				XF86AudioNext             { spawn "playerctl" "next";       }
 				XF86AudioPrev             { spawn "playerctl" "previous";   }
-				XF86AudioRaiseVolume      { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.05+"; }
-				XF86AudioLowerVolume      { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.05-"; }
-				CTRL+XF86AudioRaiseVolume { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.02+"; }
-				CTRL+XF86AudioLowerVolume { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.02-"; }
+				XF86AudioRaiseVolume      { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.10+"; }
+				XF86AudioLowerVolume      { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.10-"; }
+				CTRL+XF86AudioRaiseVolume { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.05+"; }
+				CTRL+XF86AudioLowerVolume { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.05-"; }
 			}
 		'';
 	};

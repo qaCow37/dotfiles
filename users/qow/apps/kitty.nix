@@ -9,6 +9,7 @@
 			map alt+d scroll_page_down
 			map alt+u scroll_page_up
 			map alt+y copy_to_clipboard
+			map alt+p paste_from_clipboard
 
 			font_family      JetbrainsMono Nerd Font
 			bold_font        auto

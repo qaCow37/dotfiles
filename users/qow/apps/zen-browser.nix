@@ -1,4 +1,4 @@
-{lib, config, pkgs, inputs, system, ...}:
+{lib, inputs, system, ...}:
 {
 	programs.zen-browser = {
 		enable = true;
@@ -83,7 +83,7 @@
 							template = "https://www.reddit.com/search/?q={searchTerms}";
 						}
 					];
-					definedAliases = ["reddit"];
+					definedAliases = ["@reddit"];
 				};
 			};
 		};
@@ -417,7 +417,7 @@
 			"Personal" = {
 				id = "f6ee1c39-172c-5370-2b11-320409caf2db";
 				position = 1000;
-				/*theme = {
+				theme = {
 					type = "gradient";
 					colors = [
 						{
@@ -431,7 +431,7 @@
 					];
 					opacity = 0.0;
 					texture = 0.0;
-				};*/
+				};
 			};
 		};
 		spacesForce = true;

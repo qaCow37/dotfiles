@@ -1,12 +1,14 @@
-{config, pkgs, inputs, ...}:
+{pkgs, ...}:
 {
 	imports = [
 		./boot.nix
 		./fonts.nix
 		./shell.nix
+		./network.nix
 		./greet.nix
 		./users.nix
 	];
+	networking.hostName = "nix";
 
 	programs.steam.enable = true;
 
@@ -27,6 +29,8 @@
 		enable = true;
 		package = pkgs.zulu25;
 	};
+
+	programs.ns-usbloader.enable = true;
 
 	environment.systemPackages = with pkgs; [
 		unzip

@@ -48,8 +48,8 @@
 			url = "github:nix-community/nixvim";
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
-		prism-nix = {
-			url = "path:/home/qow/prism-nix";
+		prismlauncher = {
+			url = "path:/home/qow/prismlauncher-nix";
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
 		#thcrap = {
@@ -67,63 +67,53 @@
 				allowUnfree = true;
 			};
 		};
-		hostname = "nix";
 		defaultSpecialArgs = {
 			system = system;
 			inputs = inputs;
-			flake-config = {
-				cachyos-kernel = false;
-			};
 			path = {
 				root   = "${self}";
 				assets = "${self}/assets";
 				#config = "${self}/config";
 			};
-			hostname = hostname;
+		};
+		
+		overlaysMod = {...}:
+		{
+			nixpkgs.overlays = with inputs; [
+				cachyos-kernel.overlays.default
+			];
+		};
+		optionsMod = {options, lib,...}:
+		{
+			config.option = lib.concatMapAttrs (key: val:
+				let
+					env = builtins.getEnv "OPT_${
+						lib.strings.toUpper key
+					}";
+				in
+				{
+					${key} = lib.mkIf (env != "")
+					{
+						"int"  = lib.strings.toInt env;
+						"bool" = env == "1";
+					}.${val.type.name} or env;
+				}
+			) options.option;
 		};
 	in
 	{
 		nixosConfigurations =
-		let
-			hostNameMod =
-			{
-				networking.hostName = hostname;
-			};
-			homeManagerMod =
-			{
-				environment.systemPackages = [
-					home-manager.packages.${system}.home-manager
-				];
-			};
-			overlaysMod =
-			{
-				nixpkgs.overlays = with inputs; [
-					cachyos-kernel.overlays.default
-				];
-			};
-		in
 		{
-			${hostname} = nixpkgs.lib.nixosSystem {
+			"nix" = nixpkgs.lib.nixosSystem {
 				inherit pkgs system;
 				modules = [
-					hostNameMod
-					homeManagerMod
 					overlaysMod
-					./hosts/nix
-					/etc/nixos/hardware-configuration.nix
-				];
-				specialArgs = pkgs.lib.recursiveUpdate defaultSpecialArgs {
-					flake-config = {
-						cachyos-kernel = true;
-					};
-				};
-			};
-			"${hostname}-default-kernel" = nixpkgs.lib.nixosSystem {
-				inherit pkgs system;
-				modules = [
-					hostNameMod
-					homeManagerMod
-					overlaysMod
+					optionsMod
+					{
+						environment.systemPackages = [
+							home-manager.packages.${system}.home-manager
+						];
+					}
 					./hosts/nix
 					/etc/nixos/hardware-configuration.nix
 				];
@@ -133,6 +123,7 @@
 		homeConfigurations."qow" = home-manager.lib.homeManagerConfiguration {
 			inherit pkgs;
 			modules = [
+				overlaysMod
 				inputs.catppuccin.homeModules.catppuccin
 				inputs.spicetify.homeManagerModules.spicetify
 				inputs.zen-browser.homeModules.beta
@@ -163,31 +154,21 @@
 						};
 					};
 				}*/
-				inputs.prism-nix.homeModules.prism-nix
+				inputs.prismlauncher.homeModules.prismlauncher-nix
 				{
-					programs.prism-nix = {
+					programs.prismlauncher-nix = {
 						enable = true;
 						instances = {
-							myInstance = {
+							"main" = {
 								config = {
-									name = "myInstance";
-								};
-
-								components = with inputs.prism-nix.prism-components; [
-									(minecraft "1.21.11")
-									(fabric    "0.19.3" )
-								];
-
-								minecraft = {
-									options = {
-										somekey = "Hello World!";
+									general = {
+										name = "main";
 									};
-										#mods = [
-										#	{
-										#	id = "";
-										#}
-										#];
 								};
+								components = with inputs.prismlauncher.components; [
+									(minecraft "1.21.11")
+									fabric
+								];
 							};
 						};
 					};
