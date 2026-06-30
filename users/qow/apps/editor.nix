@@ -27,6 +27,7 @@
 			wrap = false;
 			signcolumn = "yes:1";
 			pumheight = 7;
+			winborder = "rounded";
 		};
 		globals = {
 			rust_recommended_style = false;
@@ -36,6 +37,12 @@
 		};
 
 		keymaps = [
+			{
+				mode = "n";
+				key = "q";
+				action = "<Nop>";
+			}
+			
 			# Navigation
 			{
 				mode = "i";
@@ -70,6 +77,18 @@
 						})
 					end
 				'';
+			}
+
+			# CMP
+			{
+				mode = "n";
+				key = "qe";
+				action.__raw = "vim.diagnostic.open_float";
+			}
+			{
+				mode = "n";
+				key = "qq";
+				action.__raw = "vim.lsp.buf.hover";
 			}
 		];
 
@@ -138,7 +157,7 @@
 				sort_by = "case_sensitive";
 
 				view = {
-					width = 50;
+					width = 35;
 					side = "left";
 				};
 				renderer = {
@@ -237,7 +256,10 @@
 						min_chars = 1;
 						max_results = 3;
 					};
-					lsp.enabled = true;
+				};
+				lsp = {
+					enabled = true;
+					completion = true;
 				};
 			};
 		};
@@ -264,6 +286,7 @@
 				fzf-native.enable = true;
 			};
 			settings = {
+				
 			};
 		};
 

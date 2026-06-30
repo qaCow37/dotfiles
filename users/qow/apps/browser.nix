@@ -19,15 +19,13 @@
 				Locked = true;
 				Cryptomining = true;
 				Fingerprinting = true;
+				SuspectedFingerprinting = true;
+				Category = "strict";
+				BaselineExceptions = false;
+				ConvenienceExceptions = false;
 			};
 			PictureInPicture = false;
-			SearchSuggestEnabled = false;
 			TranslateEnabled = false;
-			SearchEngines = {
-				HideDefaultSearchEngines = true;
-				Default = "brave";
-				PreventInstalls = true;
-			};
 		};
 	};
 	programs.zen-browser.policies.Preferences = {
@@ -88,11 +86,15 @@
 			};
 		};
 		settings = {
-			# Layout to Sidebar + Toolbar
-			"zen.view.use-single-toolbar" = false;
+			# Layout
+			"zen.urlbar.behavior" = "float";
+			"zen.view.use-single-toolbar" = true;
 			"zen.view.sidebar-expanded" = true;
-			"zen.view.sidebar-expanded.max-width" = 400;
-
+			"zen.view.sidebar-expanded.max-width" = 300;
+			"zen.view.compact.show-sidebar-and-toolbar-on-hover" = false;
+			"zen.view.window.scheme" = 0;
+			"zen.window-sync.enabled" = false;
+			
 			"layout.spellcheckDefault" = 0;
 			"zen.workspaces.continue-where-left-off" = true;
 			"zen.welcome-screen.seen" = true;
@@ -228,6 +230,11 @@
 							name = "DeepL";
 							url = "https://deepl.com";
 							tags = ["tool" "translator"];
+						}
+						{
+							name = "DSLSpeedtest";
+							url = "https://speedtest.net";
+							tags = ["tool"];
 						}
 					];
 				}
@@ -378,17 +385,23 @@
 				{
 					id = "key_newNavigatorTab";
 					key = "t";
-					modifiers.control = true;
+					modifiers.alt = true;
 				}
 				{
-					id = "focusURLBar";
-					key = "l";
-					modifiers.control = true;
+					id = "key_close";
+					key = "u";
+					modifiers.alt = true;
 				}
 				{
 					id = "zen-close-all-unpinned-tabs";
 					key = "u";
+					modifiers.alt = true;
 					modifiers.control = true;
+				}
+				{
+					id = "focusURLBar";
+					key = "q";
+					modifiers.alt = true;
 				}
 			];
 		# Disables all Shortcuts and only keeps the ones defined in `keybinds`:
@@ -414,7 +427,7 @@
 		keyboardShortcutsVersion = 19;
 
 		spaces = {
-			"Personal" = {
+			"Default" = {
 				id = "f6ee1c39-172c-5370-2b11-320409caf2db";
 				position = 1000;
 				theme = {

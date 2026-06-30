@@ -1,12 +1,14 @@
 {pkgs, ...}:
 {
 	imports = [
+		./nixpkgs.nix
 		./boot.nix
 		./fonts.nix
 		./shell.nix
 		./network.nix
 		./greet.nix
 		./users.nix
+		./graphics.nix
 	];
 	networking.hostName = "nix";
 
@@ -44,13 +46,6 @@
 		rustc
 		tuigreet
 	];
-
-	hardware = {
-		graphics = {
-			enable = true;
-			enable32Bit = true;
-		};
-	};
 
 	services.playerctld = {
 		enable = true;

@@ -48,10 +48,10 @@
 			url = "github:nix-community/nixvim";
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
-		# prismlauncher = {
-		# 	url = "path:/home/qow/prismlauncher-nix";
-		# 	inputs.nixpkgs.follows = "nixpkgs";
-		# };
+		prismlauncher = {
+			url = "path:/home/qow/prismlauncher-nix";
+			inputs.nixpkgs.follows = "nixpkgs";
+		};
 		#thcrap = {
 		#	url = "path:/home/qow/thcrap-flake";
 		#	inputs.nixpkgs.follows = "nixpkgs";
@@ -61,12 +61,6 @@
 	outputs = {self, nixpkgs, home-manager, ...}@inputs:
 	let
 		system = "x86_64-linux";
-		pkgs = import nixpkgs {
-			inherit system;
-			config = {
-				allowUnfree = true;
-			};
-		};
 		defaultSpecialArgs = {
 			system = system;
 			inputs = inputs;
@@ -77,12 +71,6 @@
 			};
 		};
 		
-		overlaysMod = {...}:
-		{
-			nixpkgs.overlays = with inputs; [
-				cachyos-kernel.overlays.default
-			];
-		};
 		optionsMod = {options, lib,...}:
 		{
 			config.option = lib.concatMapAttrs (key: val:
@@ -105,9 +93,9 @@
 		nixosConfigurations =
 		{
 			"nix" = nixpkgs.lib.nixosSystem {
-				inherit pkgs system;
+				inherit system;
+				
 				modules = [
-					overlaysMod
 					optionsMod
 					{
 						environment.systemPackages = [
@@ -121,9 +109,8 @@
 			};
 		};
 		homeConfigurations."qow" = home-manager.lib.homeManagerConfiguration {
-			inherit pkgs;
+			pkgs = import nixpkgs {system = system;};
 			modules = [
-				overlaysMod
 				inputs.catppuccin.homeModules.catppuccin
 				inputs.spicetify.homeManagerModules.spicetify
 				inputs.zen-browser.homeModules.beta
@@ -154,25 +141,28 @@
 						};
 					};
 				}*/
-				# inputs.prismlauncher.homeModules.prismlauncher-nix
-				# {
-				# 	programs.prismlauncher-nix = {
-				# 		enable = true;
-				# 		instances = {
-				# 			"main" = {
-				# 				config = {
-				# 					general = {
-				# 						name = "main";
-				# 					};
-				# 				};
-				# 				components = with inputs.prismlauncher.components; [
-				# 					(minecraft "1.21.11")
-				# 					fabric
-				# 				];
-				# 			};
-				# 		};
-				# 	};
-				# }
+				inputs.prismlauncher.homeModules.prismlauncher-nix
+				({lib, pkgs, ...}@args: {
+					programs.prismlauncher-nix = {
+						enable = true;
+						instances = {
+							"main" = {
+								config = {
+									name = "main";
+								};
+								components = [
+								];
+								resources = with inputs.prismlauncher.resources.${system};
+								[
+									(options {
+										x = 10;
+										y = 12;
+									})
+								];
+							};
+						};
+					};
+				})
 				./users/qow
 			];
 			extraSpecialArgs = defaultSpecialArgs // {
