@@ -94,8 +94,8 @@
 				Mod+Ctrl+K     { move-window-to-workspace-up;   }
 				Mod+N          { focus-monitor-next;            }
 				Mod+Ctrl+N     { move-column-to-monitor-next;   }
-				Mod+F4       repeat=false { close-window;   }
-				Mod+Shift+F4 repeat=false { ${kill-window}; }
+				Mod+U       repeat=false { close-window;   }
+				Mod+Shift+U repeat=false { ${kill-window}; }
 
 				XF86AudioPlay             { spawn "playerctl" "play-pause"; }
 				XF86AudioStop             { spawn "playerctl" "stop";       }
@@ -109,27 +109,18 @@
 		'';
 	};
 
-	services.hyprpaper = {
+	services.wpaperd =
+	let
+		wallpaper = {
+			path = "${path.assets}/background.png";
+			mode = "center";
+		};
+	in
+	{
 		enable = true;
-		settings =
-		let
-			wallpaper = "${path.assets}/background.png";
-			black     = "${path.assets}/black.png";
-		in
-		{
-			perload = [wallpaper black];
-			wallpaper = [
-				{
-					monitor = "DP-1";
-					path = wallpaper;
-					fit_mode = "cover";
-				}
-				{
-					monitor = "*";
-					path = black;
-					fit_mode = "fill";
-				}
-			];
+		settings = {
+			"DP-1" = wallpaper;
+			"eDP-1" = wallpaper;
 		};
 	};
 
