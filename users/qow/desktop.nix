@@ -53,6 +53,11 @@
 				hide-after-inactive-ms 3000
 			}
 
+			layer-rule {
+				match namespace="wpaperd.*"
+				place-within-backdrop true
+			}
+
 			blur {
 				passes 5
 				offset 8
@@ -79,6 +84,7 @@
 					proportion 0.5
 					proportion 1.0
 				}
+				background-color "transparent"
 			}
 
 			binds {
