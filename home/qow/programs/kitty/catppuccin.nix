@@ -1,0 +1,1 @@
+{ catppuccin.kitty.enable = true; }

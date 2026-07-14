@@ -1,0 +1,5 @@
+{
+	imports = [
+		./clear.nix
+	];
+}
