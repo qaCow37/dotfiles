@@ -1,15 +1,17 @@
+{config, ...}:
 {
-	xdg.userDirs = {
+	xdg.userDirs = let home = config.home.homeDirectory; in
+	{
 		enable = true;
 		createDirectories = true;
-		music       = "$HOME/assets/music";
-		videos      = "$HOME/assets/videos";
-		pictures    = "$HOME/assets/pictures";
-		documents   = "$HOME/assets/documents";
-		templates   = "$HOME/assets/.templates";
-		publicShare = "$HOME/assets/.public-share";
-		desktop     = "$HOME/assets/.desktop";
-		download    = "$HOME/downloads";
-		projects    = "$HOME/projects";
+		music       = "${home}/assets/music";
+		videos      = "${home}/assets/videos";
+		pictures    = "${home}/assets/pictures";
+		documents   = "${home}/assets/documents";
+		templates   = "${home}/assets/.templates";
+		publicShare = "${home}/assets/.public-share";
+		desktop     = "${home}/assets/.desktop";
+		download    = "${home}/downloads";
+		projects    = "${home}/projects";
 	};
 }

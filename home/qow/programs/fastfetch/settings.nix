@@ -18,7 +18,7 @@
 		};
 
 		logo = {
-			type = "auto";
+			type = "kitty";
 			source = "${flake}/assets/fastfetch/logo.png";
 			preserveAspectRatio = true;
 

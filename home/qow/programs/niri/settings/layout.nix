@@ -1,6 +1,6 @@
 {
 	programs.niri.settings.layout = {
-		gaps = 80;
+		gaps = 100;
 		preset-column-widths = [
 			{proportion = 0.5;}
 			{proportion = 1.0;}

@@ -6,7 +6,6 @@
 		homeDirectory = "/home/qow";
 
 		packages = with pkgs; [
-			wl-clipboard
 			krita
 
 			# Noto Fonts

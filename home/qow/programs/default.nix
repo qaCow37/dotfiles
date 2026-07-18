@@ -10,6 +10,7 @@
 		./niri
 		./nixcord
 		./nixvim
+		./prismlauncher-nix
 		./spicetify
 		./starship
 		./yazi

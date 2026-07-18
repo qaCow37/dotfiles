@@ -41,15 +41,10 @@
 			url = "github:epireyn/niri-flake";
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
-
-		# prismlauncher = {
-		# 	url = "path:/home/qow/prismlauncher-nix";
-		# 	inputs.nixpkgs.follows = "nixpkgs";
-		# };
-		#thcrap = {
-		#	url = "path:/home/qow/thcrap-flake";
-		#	inputs.nixpkgs.follows = "nixpkgs";
-		#};
+		prismlauncher-nix = {
+			url = "path:/home/qow/projects/prismlauncher-nix";
+			inputs.nixpkgs.follows = "nixpkgs";
+		};
 	};
 
 	outputs = {self, nixpkgs, home-manager, ...}@inputs:
@@ -87,6 +82,7 @@
 					inputs.nixvim.homeModules.nixvim
 					inputs.nixcord.homeModules.nixcord
 					inputs.niri.homeModules.niri
+					inputs.prismlauncher-nix.homeModules.prismlauncher-nix
 					./home/qow
 				];
 				extraSpecialArgs = defaultSpecialArgs;

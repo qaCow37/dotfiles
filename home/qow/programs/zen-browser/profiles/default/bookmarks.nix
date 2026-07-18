@@ -67,10 +67,6 @@
 						url = "https://search.brave.com/ask";
 					}
 					{
-						name = "chatgpt";
-						url = "https://chatgpt.com";
-					}
-					{
 						name = "deepl";
 						url = "https://deepl.com";
 					}

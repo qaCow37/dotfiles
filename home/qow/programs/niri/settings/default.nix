@@ -1,3 +1,4 @@
+{config, ...}:
 {
 	imports = [
 		./binds.nix
@@ -52,5 +53,7 @@
 				clip-to-geometry = true;
 			}
 		];
+
+		screenshot-path = "${config.xdg.userDirs.pictures}/screenshots/%m-%d:%H-%M-%S.png";
 	};
 }

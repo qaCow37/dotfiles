@@ -7,7 +7,7 @@ The only things the system configuration does it provide a minimal system that b
 
 # Home Configuration
 This is my life. It contains all programs I need and configures them.
-It installs NiriWM so i can launch it straight from TTY after logging in.
+It installs NiriWM so I can launch it straight from TTY after logging in.
 
 # Assets
 The assets folder only contains placeholder. Each placeholder is just an image of a single black pixel.
